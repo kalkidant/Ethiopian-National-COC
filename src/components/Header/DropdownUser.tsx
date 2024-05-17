@@ -45,7 +45,7 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-          Amanual Belay
+            Amanual Belay
           </span>
           <span className="block text-xs">Medical Doctor</span>
         </span>
@@ -70,7 +70,6 @@ const DropdownUser = () => {
           />
         </svg>
       </Link>
-
     </div>
   );
 };

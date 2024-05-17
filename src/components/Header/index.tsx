@@ -1,4 +1,3 @@
-
 import DropdownUser from './DropdownUser';
 
 const Header = (props: {
@@ -49,22 +48,19 @@ const Header = (props: {
               </span>
             </span>
           </button>
-
         </div>
 
         <div className="hidden sm:block">
           <form action="https://formbold.com/s/unique_form_id" method="POST">
             <div className="relative">
-            <div className="font-Lato text-[28px] text-[#195241] font-extrabold leading-[33.6px] text-left">
-            Ethiopian National COC
-</div>
-           
+              <div className="font-Lato text-[28px] text-[#195241] font-extrabold leading-[33.6px] text-left">
+                Ethiopian National COC
+              </div>
             </div>
           </form>
         </div>
 
         <div className="flex items-center gap-3 2xsm:gap-7">
-
           <DropdownUser />
         </div>
       </div>
