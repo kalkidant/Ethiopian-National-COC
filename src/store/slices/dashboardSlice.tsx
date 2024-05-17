@@ -1,8 +1,7 @@
 // dashboardSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import axiosInstance from '../api';
-
+import  { config } from '../api';
 export interface DataItem {
   totalCoc: number;
   totalCompleted: number;
@@ -36,15 +35,11 @@ interface DataState {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null;
 }
+
 export const fetchData = createAsyncThunk('coc/getDashboard', async (_, { rejectWithValue }) => {
   try {
-    const config = {
-      headers: {
-        'Authorization-Key': 'a593e16f43bc2fa6132af7d823113f729ba32d8416120808a967'
-      }
-    };
 
-    const response = await axios.get('https://national-coc-api.lmis.gov.et/coc/data', config);
+    const response = await axios.get(`https://national-coc-api.lmis.gov.et/coc/data`, config);
     return response.data;
   } catch (error) {
     // Reject the promise with the error message
@@ -53,11 +48,6 @@ export const fetchData = createAsyncThunk('coc/getDashboard', async (_, { reject
 });
 export const fetchAllData = createAsyncThunk('coc/getAllData', async (_, { rejectWithValue }) => {
   try {
-    const config = {
-      headers: {
-        'Authorization-Key': 'a593e16f43bc2fa6132af7d823113f729ba32d8416120808a967'
-      }
-    };
 
     const response = await axios.get('https://national-coc-api.lmis.gov.et/coc/get-all', config);
     return response.data;
