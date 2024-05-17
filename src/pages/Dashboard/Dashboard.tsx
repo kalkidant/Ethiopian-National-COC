@@ -1,40 +1,35 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import CardDataStats from '../../components/CardDataStats';
 import ChartOne from '../../components/Charts/ChartOne';
 import ChartTwo from '../../components/Charts/ChartTwo';
-import ChatCard from '../../components/Chat/ChatCard';
 import TableOne from '../../components/Tables/TableOne';
 import DefaultLayout from '../../layout/DefaultLayout';
+import ChartTree from '../../components/Charts/ChartTree';
+import { AppDispatch, RootState } from '../../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllData, fetchData } from '../../store/slices/dashboardSlice';
+import { Card } from '../../components/Charts/TotalCard';
 
 const Dashboard: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const { items, status, error,dataList } = useSelector((state: RootState) => state.data);
+
+  useEffect(() => {
+    try {
+      dispatch(fetchData());
+      dispatch(fetchAllData())
+    } catch (error) {
+      console.log(error,"errrrr")
+    }
+  
+  }, [dispatch]);
+
   return (
     <DefaultLayout>
        <div className="grid grid-cols-12 gap-8">
-       <div className="col-span-8 sm:col-span-8 h-full">
-  <div className="grid grid-cols-12 gap-2 h-full">
-    <div className="col-span-3 sm:col-span-3 rounded-sm border border-stroke bg-white py-6 px-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-<CardDataStats/>
-    </div>
-    <div className="col-span-3 sm:col-span-3 rounded-sm border border-stroke bg-white py-6 px-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-   
-   </div>
-   <div className="col-span-3 sm:col-span-3 rounded-sm border border-stroke bg-white py-6 px-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-   
-   </div>
-   <div className="col-span-3 sm:col-span-3 rounded-sm border border-stroke bg-white py-6 px-4 shadow-default dark:border-strokedark dark:bg-boxdark">
-   
-   </div>
-   
-   
-    {/* Rest of the grid items */}
-    <div className="col-span-12 sm:col-span-12 rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
-      <ChartOne />
-    </div>
-  </div>
- 
-</div>
-        <div className="col-span-4 sm:col-span-4">
-        <ChartTwo />
+    <Card totalCount= {items}/>
+        <div className="col-span-12 sm:col-span-4">
+        <ChartTwo totalCount= {items?.totalCountByCity} totalCoc={items?.totalCoc} />
         </div>
        </div>
      
@@ -44,10 +39,10 @@ const Dashboard: React.FC = () => {
       
         
       
-        <div className="col-span-12 xl:col-span-8">
-          <TableOne />
+        <div className="col-span-12 xl:col-span-8 border-none">
+          <TableOne dataList={dataList} />
         </div>
-        <ChatCard />
+        <ChartTree totalCount={items?.totalPracticalPassedAndFailed} />
       </div>
     </DefaultLayout>
   );

@@ -1,124 +1,91 @@
-import { BRAND } from '../../types/brand';
-import BrandOne from '../../images/brand/brand-01.svg';
-import BrandTwo from '../../images/brand/brand-02.svg';
-import BrandThree from '../../images/brand/brand-03.svg';
-import BrandFour from '../../images/brand/brand-04.svg';
-import BrandFive from '../../images/brand/brand-05.svg';
+import React, { useRef } from "react";
+import { AgGridReact } from "ag-grid-react";
+import 'ag-grid-community/styles/ag-grid.css';
+import 'ag-grid-community/styles/ag-theme-alpine.css';
+import './Table.css'
 
-const brandData: BRAND[] = [
-  {
-    logo: BrandOne,
-    name: 'Google',
-    visitors: 3.5,
-    revenues: '5,768',
-    sales: 590,
-    conversion: 4.8,
-  },
-  {
-    logo: BrandTwo,
-    name: 'Twitter',
-    visitors: 2.2,
-    revenues: '4,635',
-    sales: 467,
-    conversion: 4.3,
-  },
-  {
-    logo: BrandThree,
-    name: 'Github',
-    visitors: 2.1,
-    revenues: '4,290',
-    sales: 420,
-    conversion: 3.7,
-  },
-  {
-    logo: BrandFour,
-    name: 'Vimeo',
-    visitors: 1.5,
-    revenues: '3,580',
-    sales: 389,
-    conversion: 2.5,
-  },
-  {
-    logo: BrandFive,
-    name: 'Facebook',
-    visitors: 3.5,
-    revenues: '6,768',
-    sales: 390,
-    conversion: 4.2,
-  },
-];
+const TableOne = ({dataList}:any) => {
+  const gridRef = useRef<AgGridReact>(null);
+  const columns= [
+    {
+      headerName: "N.O",
+      field: "no",
+      width: 70,
+      valueGetter: (params: any) => {
+        return params.node.rowIndex + 1;
+      }
+    },
+    {
+      headerName: "Name",
+      field: "first_name",
+      width: 200,
+      headerHeight: 40,
+      rowHeight: 40,
+      cellRenderer: (params) => {
+        return (
+          <div className="flex items-center">
+            <img
+              src="https://i.pinimg.com/736x/38/93/07/389307d6af5c4be0051b7d3c4f93bf3d.jpg"
+              className="w-8 h-8 rounded-full object-cover mr-2"
+              alt="Name Icon"
+            />
+            <span>{params.data.first_name}</span>
+          </div>
+        );
+      },
+    },
+    {headerName: "Assessed", field: "assessed", width: 120,headerHeight: 40,
+    rowHeight: 40,},
+    {headerName: "Reg.No", field: "reg_no", width: 160,headerHeight: 40,
+    rowHeight: 40,},
+    {headerName: "Location", field: "location", width: 120,headerHeight: 40,
+    rowHeight: 40,},
+    {
+      headerName: "Action",
+      field: "",
+      width: 120,
+      headerHeight: 40,
+      rowHeight: 40,
+      cellRenderer: (params: any) => {
+        return <button
+        type="button"
+        className="inline-flex items-center rounded   bg-[#F0F7F7] px-4 pb-1 pt-1 text-sm text-[#4F5E74] font-small uppercase leading-normal"
+       
+      >
+       <svg width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_1_479)">
+<rect y="0.951691" width="12" height="12" rx="1.33333" fill="white"/>
+<path d="M3.36688 7.11912C3.36688 7.11912 4.26235 5.35986 5.82985 5.35986C7.39699 5.35986 8.29281 7.11912 8.29281 7.11912C8.29281 7.11912 7.39699 8.87838 5.82985 8.87838C4.26235 8.87838 3.36688 7.11912 3.36688 7.11912Z" stroke="#4F5E74" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M8.99709 8.87766V9.58137C8.99709 9.768 8.92295 9.94699 8.79098 10.079C8.65901 10.2109 8.48002 10.2851 8.29339 10.2851H3.36746C3.18083 10.2851 3.00184 10.2109 2.86987 10.079C2.7379 9.94699 2.66376 9.768 2.66376 9.58137V8.87766M8.99709 5.35914V4.65544C8.99709 4.46881 8.92295 4.28982 8.79098 4.15785C8.65901 4.02588 8.48002 3.95174 8.29339 3.95174H3.36746C3.18083 3.95174 3.00184 4.02588 2.86987 4.15785C2.7379 4.28982 2.66376 4.46881 2.66376 4.65544V5.35914M5.83042 7.47025C5.92374 7.47025 6.01324 7.43318 6.07922 7.3672C6.14521 7.30121 6.18228 7.21172 6.18228 7.1184C6.18228 7.02509 6.14521 6.93559 6.07922 6.86961C6.01324 6.80362 5.92374 6.76655 5.83042 6.76655C5.73711 6.76655 5.64761 6.80362 5.58163 6.86961C5.51564 6.93559 5.47857 7.02509 5.47857 7.1184C5.47857 7.21172 5.51564 7.30121 5.58163 7.3672C5.64761 7.43318 5.73711 7.47025 5.83042 7.47025Z" stroke="#4F5E74" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<rect x="0.333333" y="1.28502" width="11.3333" height="11.3333" rx="1" stroke="#4F5E74" stroke-width="0.666667"/>
+<defs>
+<clipPath id="clip0_1_479">
+<rect y="0.951691" width="12" height="12" rx="1.33333" fill="white"/>
+</clipPath>
+</defs>
+</svg>
 
-const TableOne = () => {
+        View
+      </button>
+        
+      }
+    }
+  ]
+
   return (
-    <div >
-    
-
-      <div className="flex flex-col">
-        <div className="grid grid-cols-3 rounded-sm bg-gray-2 dark:bg-meta-4 sm:grid-cols-5">
-          <div className="p-2.5 xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Source
-            </h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Visitors
-            </h5>
-          </div>
-          <div className="p-2.5 text-center xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Revenues
-            </h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Sales
-            </h5>
-          </div>
-          <div className="hidden p-2.5 text-center sm:block xl:p-5">
-            <h5 className="text-sm font-medium uppercase xsm:text-base">
-              Conversion
-            </h5>
-          </div>
-        </div>
-
-        {brandData.map((brand, key) => (
-          <div
-            className={`grid grid-cols-3 sm:grid-cols-5 ${
-              key === brandData.length - 1
-                ? ''
-                : 'border-b border-stroke dark:border-strokedark'
-            }`}
-            key={key}
-          >
-            <div className="flex items-center gap-3 p-2.5 xl:p-5">
-              <div className="flex-shrink-0">
-                <img src={brand.logo} alt="Brand" />
-              </div>
-              <p className="hidden text-black dark:text-white sm:block">
-                {brand.name}
-              </p>
-            </div>
-
-            <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-black dark:text-white">{brand.visitors}K</p>
-            </div>
-
-            <div className="flex items-center justify-center p-2.5 xl:p-5">
-              <p className="text-meta-3">${brand.revenues}</p>
-            </div>
-
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-black dark:text-white">{brand.sales}</p>
-            </div>
-
-            <div className="hidden items-center justify-center p-2.5 sm:flex xl:p-5">
-              <p className="text-meta-5">{brand.conversion}%</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <AgGridReact
+      ref={gridRef}
+      suppressRowClickSelection={true}
+      pagination={true}
+      paginationAutoPageSize={true}
+      rowData={dataList?.data}
+      columnDefs={columns}
+      className="ag-theme-alpine max-w-full border-none bg-transparent font-poppins"
+      rowStyle={{
+        fontFamily: 'Poppins, sans-serif',
+      }}
+    />
   );
 };
 

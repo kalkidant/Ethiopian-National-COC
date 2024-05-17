@@ -1,0 +1,7 @@
+.ag-theme-alpine .ag-header,
+.ag-theme-alpine .ag-body,
+.ag-theme-alpine .ag-footer,
+.ag-theme-alpine .ag-row,
+.ag-theme-alpine .ag-cell {
+  border: 0 !important;
+}

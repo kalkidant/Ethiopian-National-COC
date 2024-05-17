@@ -32,7 +32,7 @@ function App() {
           }
         />
         <Route
-          path="/Table"
+          path="/table"
           element={
             <>
               <PageTitle title="Table" />
