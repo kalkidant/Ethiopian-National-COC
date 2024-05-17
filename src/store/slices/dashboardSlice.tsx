@@ -1,7 +1,7 @@
 // dashboardSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import  { config } from '../api';
+import  { baseUrl, config } from '../api';
 export interface DataItem {
   totalCoc: number;
   totalCompleted: number;
@@ -39,7 +39,7 @@ interface DataState {
 export const fetchData = createAsyncThunk('coc/getDashboard', async (_, { rejectWithValue }) => {
   try {
 
-    const response = await axios.get(`https://national-coc-api.lmis.gov.et/coc/data`, config);
+    const response = await axios.get(`${baseUrl}coc/data`, config);
     return response.data;
   } catch (error) {
     // Reject the promise with the error message
@@ -49,7 +49,7 @@ export const fetchData = createAsyncThunk('coc/getDashboard', async (_, { reject
 export const fetchAllData = createAsyncThunk('coc/getAllData', async (_, { rejectWithValue }) => {
   try {
 
-    const response = await axios.get('https://national-coc-api.lmis.gov.et/coc/get-all', config);
+    const response = await axios.get(`${baseUrl}coc/get-all`, config);
     return response.data;
   } catch (error) {
     return rejectWithValue("error.message");
