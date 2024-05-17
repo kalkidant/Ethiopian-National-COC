@@ -131,6 +131,22 @@ const ChartOne: React.FC = ({ totalCount }: any) => {
     });
   }, [totalCount]);
 
+  const percentage = () => {
+    if (!totalCount || !totalCount.totalCocThisMonth || !totalCount.totalCocByMonth || totalCount.totalCocByMonth.length === 0 || !totalCount.totalCocByMonth[0]._count || !totalCount.totalCocByMonth[0]._count.month) {
+      return 0; // or handle the case in another appropriate way
+    }
+  
+    const currentMonthCount = totalCount.totalCocThisMonth;
+    const previousMonthCount = totalCount.totalCocByMonth[0]._count.month;
+  
+    if (previousMonthCount === 0) {
+      return 0; // Avoid division by zero
+    }
+  
+    const incrementPercentage = ((currentMonthCount - previousMonthCount) / previousMonthCount) * 100;
+    return incrementPercentage;
+  };
+
   return (
     <div className="col-span-12 rounded-sm border border-stroke bg-white p-7.5 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4">
       <div className="mb-4 justify-between gap-4 ">
@@ -163,10 +179,10 @@ const ChartOne: React.FC = ({ totalCount }: any) => {
                 sm:w-[100px] sm:h-[60px] sm:text-[40px] sm:leading-[60px]
               "
               >
-                2460
+                {totalCount?.totalCocThisMonth}
               </div>
               <p>
-                <span className="text-[#36978D]">+23%</span>since last month
+                <span className="text-[#36978D]">+ {percentage()== undefined? 0:percentage()} %</span>since last month
               </p>
             </div>
           </div>
